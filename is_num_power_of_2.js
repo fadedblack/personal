@@ -20,7 +20,3 @@ function occurences(string, char) {
 function isNumPowerOf2(number) {
   return occurences(toBinary(number), '1') === 1;
 }
-
-function isPowerOf2(number) {
-  return number === 0 ? false : (number & (number - 1)) === 0;
-}
