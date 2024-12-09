@@ -1,20 +1,11 @@
-function repeat(string, times) {
-  let repeatedString = '';
-  for (let time = 0; time < times; time += 1) {
-    repeatedString += string;
-  }
-
-  return repeatedString;
-}
-
 function getBorder(start, middle, end, columns, length) {
   const times = Math.ceil(length / 2);
-  const column = repeat('━', times) + middle + repeat('━', times);
+  const column = '━'.repeat(times) + middle + '━'.repeat(times);
 
-  const startingSegment = start + repeat('━', times);
-  const endingSegment = repeat('━', times) + end;
+  const startingSegment = start + '━'.repeat(times);
+  const endingSegment = '━'.repeat(times) + end;
 
-  return startingSegment + repeat(column, columns - 1) + endingSegment;
+  return startingSegment + column.repeat(columns - 1) + endingSegment;
 }
 
 function isEven(number) {
@@ -27,8 +18,8 @@ function insertData(message, size) {
   const newSpaces = isEven(spacesToAdd) ? spacesToAdd : spacesToAdd + 1;
   const extraSpace = isEven(spacesToAdd) ? 1 : 0;
 
-  return '┃' + repeat(' ', newSpaces / 2) + message +
-    repeat(' ', newSpaces / 2 + extraSpace);
+  return '┃' + ' '.repeat(newSpaces / 2) + message +
+    ' '.repeat(newSpaces / 2 + extraSpace);
 }
 
 function getLargestElement(values) {
