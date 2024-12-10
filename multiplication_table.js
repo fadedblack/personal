@@ -9,8 +9,7 @@ function isEven(number) {
 
 function insertData(message, size) {
   const totalSpaces = size - (message + '').length;
-  const padding = isEven(size) ? 0 : 1; // should i use the binary operation
-  // value directly?
+  const padding = isEven(size) ? 0 : 1; 
 
   return BAR + SPACE.repeat(Math.floor(totalSpaces / 2)) + message +
     SPACE.repeat(Math.ceil(totalSpaces / 2) + padding);
@@ -80,8 +79,8 @@ function multiply(number1, number2) {
 
   const powerOf2 = 2 << (getPowerOf2(max) - 1);
 
-  if (min === 1) {
-    return max;
+  if (min <= 1) {
+    return min === 0 ? min : max;
   }
 
   if (powerOf2 === max) {
@@ -119,4 +118,3 @@ function testAll() {
 }
 
 testAll();
-// console.log(generateTableData(1));
