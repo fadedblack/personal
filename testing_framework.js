@@ -1,7 +1,3 @@
-function add(number1, number2) {
-  return number1 + number2;
-}
-
 //************************************TABLE*************************************
 const DASH = '━';
 const BAR = '┃';
@@ -68,7 +64,6 @@ function createTable(values) {
 }
 
 //***********************************TESTING***********************************
-const tableData = [];
 
 function display(table) {
   console.log(table);
@@ -78,33 +73,35 @@ function getMark(acutal, expected) {
   return acutal === expected ? '🟢' : '🔴';
 }
 
-function test(number1, number2, expected) {
-  const acutal = add(number1, number2);
+function test(input, expected, tableData) {
+  const acutal = f(input);
   const mark = getMark(acutal, expected);
 
-  const row = [mark, number1, number2, expected, acutal];
+  const testData = [mark, input, expected, acutal];
 
-  tableData.push(row);
+  tableData.push(testData);
 }
 
 function getHeading() {
   const heading = [
-    "Status", "Number1", "Number2",
+    "Status", "Input",
     "Expected Output", "Actual Output"
   ];
 
   return heading;
 }
 
+function printTable(tableData) {
+  display(createTable(tableData));
+}
+
 function testAll() {
-  tableData.push(getHeading());
+  display("\nTesting F Function:\n");
 
-  test(1, 2, 3);
-  test(1, 3, 4);
-  test(1, 3, 7);
+  const fTableData = [getHeading()];
+  test('input', undefined, fTableData);
 
-  const table = createTable(tableData);
-  display(table);
+  printTable(fTableData);
 }
 
 testAll();
