@@ -65,17 +65,6 @@ function createTable(values) {
 }
 
 const values = [
-  // ["Multiplier", "Multiplicant", "Product"],
-  // [1, 2, 2],
-  // [2, 2, 4],
-  // [3, 2, 6],
-  // [4, 2, 8],
-  // [5, 2, 10],
-  // [6, 2, 12],
-  // [7, 2, 14],
-  // [8, 2, 16],
-  // [9, 2, 18],
-  // [10, 2, 20]
   ["Name", "Age", "Designation"],
   ["Shalu Jha", 32, "Intern"],
   ["Mallika Hajra", 12, "Intern"],
