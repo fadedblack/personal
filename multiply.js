@@ -1,25 +1,44 @@
 //************************************TABLE*************************************
-
-function getBorder(start, middle, end, columns, length) {
-  const times = Math.ceil(length / 2);
-  const column = '━'.repeat(times) + middle + '━'.repeat(times);
-
-  const startingSegment = start + '━'.repeat(times);
-  const endingSegment = '━'.repeat(times) + end;
-
-  return startingSegment + column.repeat(columns - 1) + endingSegment;
-}
+const DASH = '━';
+const BAR = '┃';
+const SPACE = ' ';
 
 function isEven(number) {
-  return (number & 1) !== 1;
+  return (number & 1) === 0;
 }
 
 function insertData(message, size) {
   const totalSpaces = size - (message + '').length;
-  const extraSpaces = isEven(size) ? 0 : 1;
+  const extraSpaces = isEven(size) ? 0 : 1; // should i use the binary operation
+  // value directly?
 
-  return '┃' + ' '.repeat(Math.floor(totalSpaces / 2)) + message +
-    ' '.repeat(Math.ceil(totalSpaces / 2) + extraSpaces);
+  return BAR + SPACE.repeat(Math.floor(totalSpaces / 2)) + message +
+    SPACE.repeat(Math.ceil(totalSpaces / 2) + extraSpaces);
+}
+
+function insertAllData(values, size) {
+  let table = [];
+
+  for (const row of values) {
+    for (const column of row) {
+      table.push(insertData(column, size));
+    }
+
+    table.push('┃\n' + getBorder('┣', '╋', '┫', row.length, size) + '\n');
+  }
+
+  table.pop();
+  return table.join("");
+}
+
+function getBorder(start, middle, end, columns, length) {
+  const times = Math.ceil(length / 2);
+  const column = DASH.repeat(times) + middle + DASH.repeat(times);
+
+  const startingSegment = start + DASH.repeat(times);
+  const endingSegment = DASH.repeat(times) + end;
+
+  return startingSegment + column.repeat(columns - 1) + endingSegment;
 }
 
 function getLargestSize(values) {
@@ -36,34 +55,13 @@ function getLargestSize(values) {
   return longestString.length;
 }
 
-function insertAllData(values, size) {
-  let table = '';
-
-  for (let row = 0; row < values.length - 1; row += 1) {
-    for (let column = 0; column < values[row].length; column += 1) {
-      table += insertData(values[row][column], size);
-    }
-
-    table += '┃\n' + getBorder('┣', '╋', '┫', values[0].length, size) + '\n';
-  }
-
-  return table;
-}
-
 function createTable(values) {
   const size = getLargestSize(values);
 
-  let table = getBorder('┏', '┳', '┓', values[0].length, size) + '\n';
+  const table = getBorder('┏', '┳', '┓', values[0].length, size) + '\n';
+  const bottom = '┃\n' + getBorder('┗', '┻', '┛', values[0].length, size);
 
-  table += insertAllData(values, size);
-
-  for (let k = 0; k < values[values.length - 1].length; k += 1) {
-    table += insertData(values[values.length - 1][k], size);
-  }
-
-  table += '┃\n' + getBorder('┗', '┻', '┛', values[0].length, size);
-
-  return table;
+  return table + insertAllData(values, size) + bottom;
 }
 
 //*******************************MULTIPLICATION********************************
@@ -116,5 +114,12 @@ function generateTableData(multiplicant) {
   return tableData;
 }
 
-const tableData = generateTableData(435);
-console.log(createTable(tableData));
+function testAll() {
+  console.log(createTable(generateTableData(1)));
+  console.log(createTable(generateTableData(2)));
+  console.log(createTable(generateTableData(3)));
+  console.log(createTable(generateTableData(456)));
+  console.log(createTable(generateTableData(236)));
+}
+
+testAll();
