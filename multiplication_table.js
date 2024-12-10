@@ -75,8 +75,8 @@ function getPowerOf2(number) {
 }
 
 function multiply(number1, number2) {
-  const min = number1 < number2 ? number1 : number2;
-  const max = number1 > number2 ? number1 : number2;
+  const min = Math.min(number1, number2);
+  const max = Math.max(number1, number2);
 
   const powerOf2 = 2 << (getPowerOf2(max) - 1);
 
@@ -115,7 +115,7 @@ function generateTableData(multiplicant) {
 }
 
 function testAll() {
-  console.log(createTable(generateTableData()));
+  console.log(createTable(generateTableData(2)));
 }
 
 testAll();
