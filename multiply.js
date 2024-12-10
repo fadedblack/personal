@@ -1,3 +1,5 @@
+//************************************TABLE*************************************
+
 function getBorder(start, middle, end, columns, length) {
   const times = Math.ceil(length / 2);
   const column = '━'.repeat(times) + middle + '━'.repeat(times);
@@ -64,6 +66,8 @@ function createTable(values) {
   return table;
 }
 
+//*******************************MULTIPLICATION********************************
+
 function getPowerOf2(number) {
   if (number === 1) {
     return 0;
@@ -100,15 +104,17 @@ function productValues(multiplicant) {
 
 function generateTableData(multiplicant) {
   const values = productValues(multiplicant);
-  const tableData = [["Multiplier", "Multiplicant", "Product"]];
+  const heading = ["Multiplicant", "Multiplier", "Product"];
+  const tableData = [heading];
 
   for (let i = 1; i < 11; i += 1) {
-    const row = [i, multiplicant, i + 'x' + multiplicant + '=' + values[i - 1]];
+    const product = i + 'x' + multiplicant + '=' + values[i - 1];
+    const row = [multiplicant, i, product];
     tableData.push(row);
   }
 
   return tableData;
 }
 
-const tableData = generateTableData(104);
+const tableData = generateTableData(435);
 console.log(createTable(tableData));
