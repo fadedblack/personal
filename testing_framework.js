@@ -1,3 +1,7 @@
+function f(input) {
+  return 1;
+}
+
 //************************************TABLE*************************************
 const DASH = '━';
 const BAR = '┃';
@@ -8,11 +12,13 @@ function isEven(number) {
 }
 
 function insertData(message, size) {
-  const totalSpaces = size - (message + '').length;
+  const totalSpaces = size - message.toString().length;
   const padding = isEven(size) ? 0 : 1;
 
-  return BAR + SPACE.repeat(Math.floor(totalSpaces / 2)) + message +
-    SPACE.repeat(Math.ceil(totalSpaces / 2) + padding);
+  const timesLeft = Math.floor(totalSpaces / 2);
+  const timesRight = Math.ceil(totalSpaces / 2) + padding;
+
+  return BAR + SPACE.repeat(timesLeft) + message + SPACE.repeat(timesRight);
 }
 
 function insertAllData(values, size) {
@@ -99,7 +105,7 @@ function testAll() {
   display("\nTesting F Function:\n");
 
   const fTableData = [getHeading()];
-  test('input', undefined, fTableData);
+  test('input', 1, fTableData);
 
   printTable(fTableData);
 }
