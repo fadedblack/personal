@@ -9,11 +9,11 @@ function isEven(number) {
 
 function insertData(message, size) {
   const totalSpaces = size - (message + '').length;
-  const extraSpaces = isEven(size) ? 0 : 1; // should i use the binary operation
+  const padding = isEven(size) ? 0 : 1; // should i use the binary operation
   // value directly?
 
   return BAR + SPACE.repeat(Math.floor(totalSpaces / 2)) + message +
-    SPACE.repeat(Math.ceil(totalSpaces / 2) + extraSpaces);
+    SPACE.repeat(Math.ceil(totalSpaces / 2) + padding);
 }
 
 function insertAllData(values, size) {
@@ -106,7 +106,7 @@ function generateTableData(multiplicant) {
   const tableData = [heading];
 
   for (let i = 1; i < 11; i += 1) {
-    const product = i + 'x' + multiplicant + '=' + values[i - 1];
+    const product = multiplicant + 'x' + i + '=' + values[i - 1];
     const row = [multiplicant, i, product];
     tableData.push(row);
   }
@@ -115,11 +115,8 @@ function generateTableData(multiplicant) {
 }
 
 function testAll() {
-  console.log(createTable(generateTableData(1)));
-  console.log(createTable(generateTableData(2)));
-  console.log(createTable(generateTableData(3)));
-  console.log(createTable(generateTableData(456)));
-  console.log(createTable(generateTableData(236)));
+  console.log(createTable(generateTableData()));
 }
 
 testAll();
+// console.log(generateTableData(1));
