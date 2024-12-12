@@ -8,12 +8,13 @@ function isEven(number) {
 }
 
 function insertData(message, size) {
-  const totalSpaces = size - (message + '').length;
-  const extraSpaces = isEven(size) ? 0 : 1; // should i use the binary operation
-  // value directly?
+  const totalSpaces = size - message.toString().length;
+  const padding = isEven(size) ? 0 : 1;
 
-  return BAR + SPACE.repeat(Math.floor(totalSpaces / 2)) + message +
-    SPACE.repeat(Math.ceil(totalSpaces / 2) + extraSpaces);
+  const timesLeft = Math.floor(totalSpaces / 2);
+  const timesRight = Math.ceil(totalSpaces / 2) + padding;
+
+  return BAR + SPACE.repeat(timesLeft) + message + SPACE.repeat(timesRight);
 }
 
 function insertAllData(values, size) {
@@ -47,7 +48,7 @@ function getLargestSize(values) {
   for (const rows of values) {
     for (const string of rows) {
       if (string.toString().length > longestString.length) {
-        longestString = string;
+        longestString = string.toString();
       }
     }
   }
