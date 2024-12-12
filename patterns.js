@@ -1,6 +1,22 @@
-function diamond(rows) {
-  return '*';
-}
+const range = function (from, to, jump) {
+  const numbers = [];
+
+  for (let i = from; i < to; i += jump) {
+    numbers.push(i);
+  }
+
+  return numbers;
+};
+
+const getStarPositions = function (columns) {
+  const positions = range(0, columns, 1);
+
+  return positions;
+};
+
+const rectangle = function (rows, columns) {
+  const starPositions = getStarPositions(columns);
+};
 
 //************************************TABLE*************************************
 const DASH = '━';
@@ -52,7 +68,7 @@ function getLargestSize(values) {
   for (const rows of values) {
     for (const string of rows) {
       if (string.toString().length > longestString.length) {
-        longestString = string;
+        longestString = string.toString();
       }
     }
   }
@@ -76,11 +92,11 @@ function display(table) {
 }
 
 function getMark(acutal, expected) {
-  return acutal === expected ? '🟢' : '🔴';
+  return acutal.toString() === expected.toString() ? '🟢' : '🔴';
 }
 
 function test(input, expected, tableData) {
-  const acutal = diamond(input);
+  const acutal = rectangle(input);
   const mark = getMark(acutal, expected);
 
   const testData = [mark, input, expected, acutal];
@@ -88,12 +104,13 @@ function test(input, expected, tableData) {
   tableData.push(testData);
 }
 
-function getHeading() {
-  const heading = [
-    "Status", "Input",
-    "Expected Output", "Actual Output"
-  ];
+function getHeading(inputs) {
+  const heading = ["Status"];
 
+  for (const input of inputs) {
+    heading.push(input);
+  }
+  heading.push("Expected Output", "Actual Output");
   return heading;
 }
 
@@ -101,15 +118,66 @@ function printTable(tableData) {
   display(createTable(tableData));
 }
 
-function testAll() {
-  display("\nTesting Diamond Function:\n");
+function testRectangle(rows, columns, expected, tableData) {
+  const acutal = rectangle(rows, columns);
+  const mark = getMark(acutal, expected);
 
-  const tableData = [getHeading()];
-  test(0, '', tableData);
-  test(1, '*', tableData);
-  test(2, '*', tableData);
+  const testData = [mark, rows, columns, expected, acutal];
+
+  tableData.push(testData);
+}
+
+function testRange(from, to, jump, expected, tableData) {
+  const acutal = range(from, to, jump);
+  const mark = getMark(acutal, expected);
+
+  const testData = [mark, from, to, jump, expected, acutal];
+
+  tableData.push(testData);
+}
+
+function testGetStartPositions(columns, expected, tableData) {
+  const acutal = getStarPositions(columns);
+  const mark = getMark(acutal, expected);
+
+  const testData = [mark, columns, expected, acutal];
+
+  tableData.push(testData);
+}
+
+function testLeadingFunction() { //change name
+  testRectangle();
+}
+
+function testAllRange() {
+  display("Testing Range Function");
+
+  const tableData = [getHeading(["Start", "End", "Jump"])];
+
+  testRange(0, 10, 1, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], tableData);
+  testRange(0, 10, 2, [0, 2, 4, 6, 8], tableData);
 
   printTable(tableData);
+}
+
+function testAllGetStartPositions() {
+  display("Testing Get Start Positions Function");
+
+  const tableData = [getHeading(["Columns"])];
+
+  testGetStartPositions(2, [0, 1], tableData);
+  testGetStartPositions(10, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], tableData);
+
+  printTable(tableData);
+}
+
+function testSupportingFunctions() {
+  testAllRange();
+  testAllGetStartPositions();
+}
+
+function testAll() {
+  testSupportingFunctions();
 }
 
 testAll();
