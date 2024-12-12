@@ -1,7 +1,12 @@
-function f(input) {
-  return 1;
-}
+const range = function (from, to, jump) {
+  const numbers = [];
 
+  for (let i = from; i < to; i += jump) {
+    numbers.push(i);
+  }
+
+  return numbers;
+};
 //************************************TABLE*************************************
 const DASH = '━';
 const BAR = '┃';
@@ -52,7 +57,7 @@ function getLargestSize(values) {
   for (const rows of values) {
     for (const string of rows) {
       if (string.toString().length > longestString.length) {
-        longestString = string;
+        longestString = string.toString();
       }
     }
   }
@@ -69,18 +74,18 @@ function createTable(values) {
   return table + insertAllData(values, size) + bottom;
 }
 
-//***********************************TESTING***********************************
+//******************************TESTING FUNCTIONS******************************
 
 function display(table) {
   console.log(table);
 }
 
 function getMark(acutal, expected) {
-  return acutal === expected ? '🟢' : '🔴';
+  return acutal.toString() === expected.toString() ? '🟢' : '🔴';
 }
 
 function test(input, expected, tableData) {
-  const acutal = f(input);
+  const acutal = rectangle(input);
   const mark = getMark(acutal, expected);
 
   const testData = [mark, input, expected, acutal];
@@ -88,26 +93,52 @@ function test(input, expected, tableData) {
   tableData.push(testData);
 }
 
-function getHeading() {
-  const heading = [
-    "Status", "Input",
-    "Expected Output", "Actual Output"
-  ];
+function getHeading(inputs) {
+  const heading = ["Status"];
 
+  for (const input of inputs) {
+    heading.push(input);
+  }
+  heading.push("Expected Output", "Actual Output");
   return heading;
 }
+
+//***********************************TESTING***********************************
 
 function printTable(tableData) {
   display(createTable(tableData));
 }
 
+function testRange(from, to, jump, expected, tableData) {
+  const acutal = range(from, to, jump);
+  const mark = getMark(acutal, expected);
+
+  const testData = [mark, from, to, jump, expected, acutal];
+
+  tableData.push(testData);
+}
+
+function testLeadingFunction() { //change name
+  testRectangle();
+}
+
+function testAllRange() {
+  display("Testing Range Function");
+
+  const tableData = [getHeading(["Start", "End", "Jump"])];
+
+  testRange(0, 10, 1, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], tableData);
+  testRange(0, 10, 2, [0, 2, 4, 6, 8], tableData);
+
+  printTable(tableData);
+}
+
+function testSupportingFunctions() {
+  testAllRange();
+}
+
 function testAll() {
-  display("\nTesting F Function:\n");
-
-  const fTableData = [getHeading()];
-  test('input', 1, fTableData);
-
-  printTable(fTableData);
+  testSupportingFunctions();
 }
 
 testAll();
