@@ -51,22 +51,24 @@ function getBorder(start, middle, end, columns, length) {
   return startingSegment + column.repeat(columns - 1) + endingSegment;
 }
 
-function getLargestSize(values) {
-  let longestString = '';
-
-  for (const rows of values) {
-    for (const string of rows) {
-      if (string.toString().length > longestString.length) {
-        longestString = string.toString();
-      }
-    }
+const getMaxLength = function (value1, value2) {
+  if (value2.toString().length > value1.length) {
+    return value2.toString();
   }
 
-  return longestString.length;
+  return value1;
+}
+
+const getLongestElement = function (longestCandidate, elements) {
+  return elements.reduce(getMaxLength, longestCandidate);
+}
+
+const getLongestLength = function (elements) {
+  return elements.reduce(getLongestElement, '').length;
 }
 
 function createTable(values) {
-  const size = getLargestSize(values);
+  const size = getLongestLength(values);
 
   const table = getBorder('┏', '┳', '┓', values[0].length, size) + '\n';
   const bottom = '┃\n' + getBorder('┗', '┻', '┛', values[0].length, size);
