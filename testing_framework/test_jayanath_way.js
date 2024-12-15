@@ -20,17 +20,18 @@ const sub = function (number1, number2) {
   return number1 - number2;
 };
 
+// ********************************Approach 1**********************************
 const areOutputsNotEqual = function (actualOutput, expectedOutput) {
   return actualOutput !== expectedOutput;
 };
 
-function test(testCases) {
+function test1(testCases) {
   const failed = [];
 
   for (const [func, inputs, expectedOutput] of testCases) {
     const actualOutput = func(...inputs);
 
-    if (areOutputsNotEqual(actualOutput,expectedOutput)) {
+    if (areOutputsNotEqual(actualOutput, expectedOutput)) {
       failed.push([func, inputs, expectedOutput, actualOutput]);
     }
   }
@@ -38,10 +39,25 @@ function test(testCases) {
   console.table(failed);
 }
 
-test(testCases);
+// ********************************Approach 2**********************************
+const evaluateOutputs = function ([func, inputs, expectedOutput]) {
+  const actualOutput = func(...inputs);
+
+  return actualOutput !== expectedOutput;
+};
+
+const test2 = function (testCases) {
+  const failed = testCases.filter(evaluateOutputs);
+
+  console.table(failed);
+};
+
 
 const testCases = [
   [add, [2, 3], 5],
   [add, [7, 4], 11],
   [sub, [7, 4], 4]
 ];
+
+test1(testCases);
+test2(testCases);
