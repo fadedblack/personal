@@ -93,13 +93,10 @@ function test(input, expected, tableData) {
   tableData.push(testData);
 }
 
-function getHeading(inputs) {
-  const heading = ["Status"];
-
-  for (const input of inputs) {
-    heading.push(input);
-  }
+function getHeading(...inputs) {
+  const heading = ["Status"].concat(...inputs);
   heading.push("Expected Output", "Actual Output");
+
   return heading;
 }
 
@@ -119,7 +116,7 @@ function testRange(from, to, jump, expected, tableData) {
 }
 
 function testLeadingFunction() { //change name
-  testRectangle();
+  // testRectangle();
 }
 
 function testAllRange() {
