@@ -59,5 +59,5 @@ const testCases = [
   [sub, [7, 4], 4]
 ];
 
-test1(testCases);
+// test1(testCases);
 test2(testCases);

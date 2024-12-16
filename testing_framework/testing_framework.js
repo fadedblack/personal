@@ -26,20 +26,34 @@ function insertData(message, size) {
   return BAR + SPACE.repeat(timesLeft) + message + SPACE.repeat(timesRight);
 }
 
-function insertAllData(values, size) {
-  let table = [];
+const addData1 = function (value) {
+  return insertData(value) +
+    '┃\n' + getBorder('┣', '╋', '┫', row.length, size) + '\n';
+};
 
-  for (const row of values) {
-    for (const column of row) {
-      table.push(insertData(column, size));
-    }
+const addData = function (values) {
+  return values.map(addData1);
+};
 
-    table.push('┃\n' + getBorder('┣', '╋', '┫', row.length, size) + '\n');
-  }
+const insertAllData = function (values, size) {
+  const newValues = values.map() //add size to each element
+  let table = values.map(addData);
+};
 
-  table.pop();
-  return table.join("");
-}
+// function insertAllData(values, size) {
+//   let table = [];
+
+//   for (const row of values) {
+//     for (const column of row) {
+//       table.push(insertData(column, size));
+//     }
+
+//     table.push('┃\n' + getBorder('┣', '╋', '┫', row.length, size) + '\n');
+//   }
+
+//   table.pop();
+//   return table.join("");
+// }
 
 function getBorder(start, middle, end, columns, length) {
   const times = Math.ceil(length / 2);
@@ -57,15 +71,15 @@ const getMaxLength = function (value1, value2) {
   }
 
   return value1;
-}
+};
 
 const getLongestElement = function (longestCandidate, elements) {
   return elements.reduce(getMaxLength, longestCandidate);
-}
+};
 
 const getLongestLength = function (elements) {
   return elements.reduce(getLongestElement, '').length;
-}
+};
 
 function createTable(values) {
   const size = getLongestLength(values);
