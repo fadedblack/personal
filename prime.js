@@ -1,30 +1,8 @@
 // find even from list, calculate primes, and return square
-
-const isSmaller = function (entity1, entity2) {
-  return entity2 > entity1;
-};
-
-const isGreater = function (entity1, entity2) {
-  return entity1 > entity2;
-};
-
-const getCondition = function (entity1, entity2) {
-  return entity1 > entity2 ? isGreater : isSmaller;
-};
-
-const isNotValidParameters = function (from, to, jump) {
-  return jump >= 0 && from >= to;
-};
-
 const range = function (from, to, jump) {
-  if (isNotValidParameters(from, to, jump)) {
-    return [];
-  }
-
   const numbers = [];
-  const condition = getCondition(from, to);
 
-  for (let index = from; condition(index, to); index += jump) {
+  for (let index = from; index < to; index += jump) {
     numbers.push(index);
   }
 
@@ -42,12 +20,12 @@ const reducer = function ([primeCandidate, predicate], divisor) {
 };
 
 const prime = function (number) {
-  if (number < 2) {
-    return false;
+  if (number < 3) {
+    return number === 2;
   }
 
-  return range(2, number - 1, 1).reduce(reducer, [number, true])[1];
-};
+  return range(2, Math.sqrt(number) + 1, 1).reduce(reducer, [number, true])[1];
+};// use every or some
 
 //**********************************TEST****************************************
 console.log(prime(0) === false);
