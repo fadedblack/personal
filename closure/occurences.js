@@ -14,7 +14,7 @@ const getUniqueElements = function (uniqueElements, currentChar) {
   if (!uniqueElements.includes(currentChar)) {
     uniqueElements.push(currentChar);
   }
-  
+
   return uniqueElements;
 };
 
@@ -22,7 +22,7 @@ const removeDuplicate = function (string) {
   return [...string].reduce(getUniqueElements, []);
 };
 
-const occurencesOfAll = function (string) {
+const frequency = function (string) {
   const uniqueStrings = removeDuplicate(string);
 
   return uniqueStrings.reduce(function (array, char) {
