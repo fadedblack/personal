@@ -12,11 +12,11 @@ const DASH = '━';
 const BAR = '┃';
 const SPACE = ' ';
 
-function isEven(number) {
+const isEven = function (number) {
   return (number & 1) === 0;
-}
+};
 
-function insertData(message, size) {
+const insertData = function (message, size) {
   const totalSpaces = size - message.toString().length;
   const padding = isEven(size) ? 0 : 1;
 
@@ -24,7 +24,7 @@ function insertData(message, size) {
   const timesRight = Math.ceil(totalSpaces / 2) + padding;
 
   return BAR + SPACE.repeat(timesLeft) + message + SPACE.repeat(timesRight);
-}
+};
 
 const addData1 = function (value) {
   return insertData(value) +
@@ -35,27 +35,27 @@ const addData = function (values) {
   return values.map(addData1);
 };
 
+// const insertAllData = function (values, size) {
+// const = function newValues = values.map(); //add size to each element
+//   let table = values.map(addData);
+// };
+
 const insertAllData = function (values, size) {
-  const newValues = values.map() //add size to each element
-  let table = values.map(addData);
+  let table = [];
+
+  for (const row of values) {
+    for (const column of row) {
+      table.push(insertData(column, size));
+    }
+
+    table.push('┃\n' + getBorder('┣', '╋', '┫', row.length, size) + '\n');
+  }
+
+  table.pop();
+  return table.join("");
 };
 
-// function insertAllData(values, size) {
-//   let table = [];
-
-//   for (const row of values) {
-//     for (const column of row) {
-//       table.push(insertData(column, size));
-//     }
-
-//     table.push('┃\n' + getBorder('┣', '╋', '┫', row.length, size) + '\n');
-//   }
-
-//   table.pop();
-//   return table.join("");
-// }
-
-function getBorder(start, middle, end, columns, length) {
+const getBorder = function (start, middle, end, columns, length) {
   const times = Math.ceil(length / 2);
   const column = DASH.repeat(times) + middle + DASH.repeat(times);
 
@@ -63,7 +63,7 @@ function getBorder(start, middle, end, columns, length) {
   const endingSegment = DASH.repeat(times) + end;
 
   return startingSegment + column.repeat(columns - 1) + endingSegment;
-}
+};
 
 const getMaxLength = function (value1, value2) {
   if (value2.toString().length > value1.length) {
@@ -81,14 +81,14 @@ const getLongestLength = function (elements) {
   return elements.reduce(getLongestElement, '').length;
 };
 
-function createTable(values) {
+const createTable = function (values) {
   const size = getLongestLength(values);
 
   const table = getBorder('┏', '┳', '┓', values[0].length, size) + '\n';
   const bottom = '┃\n' + getBorder('┗', '┻', '┛', values[0].length, size);
 
   return table + insertAllData(values, size) + bottom;
-}
+};
 
 //******************************TESTING FUNCTIONS******************************
 
