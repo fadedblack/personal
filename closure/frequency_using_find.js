@@ -1,19 +1,19 @@
 //**********************************Approach 4**********************************
 
-const insertIntoTable = function (table, element) {
-  const rowOrUndefined = table.find(function (row) {
+const updateFrequency = function (frequencyTable, element) {
+  const matchingRow = frequencyTable.find(function (row) {
     return row[0] === element;
   });
 
-  if (rowOrUndefined === undefined) {
-    table.push([element, 1]);
-    return table;
+  if (matchingRow === undefined) {
+    frequencyTable.push([element, 1]);
+    return frequencyTable;
   }
 
-  rowOrUndefined[1] += 1;
-  return table;
+  matchingRow[1] += 1;
+  return frequencyTable;
 };
 
 const frequency = function (string) {
-  return [...string].reduce(insertIntoTable, []);
+  return [...string].reduce(updateFrequency, []);
 };
