@@ -32,14 +32,3 @@ const frequency = function (string) {
     return array;
   }, []);
 };
-
-// hello, l => 2
-// ollolo, l => 3
-// ollollo, a => -1
-
-// console.log(occurencesOfAll('hello'));
-// console.log(occurencesOfAll('himasai'));
-// console.log(occurencesOfAll([1,2,3,4,5,1]));
-// console.log(occurencesOfAll('gour adhikary'));
-
-console.table(frequency3('priyankush pal'));
