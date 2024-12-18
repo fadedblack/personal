@@ -35,22 +35,61 @@ const frequency = function (string) {
 
 //**********************************Approach 2**********************************
 
-const frequency1 = function (string) {
-  return [...string].reduce(function (array, char) {
-    if (!array.flat().includes(char)) {
-      array.push([char, 1]);
-      return array;
+const frequency1 = function (listOfElement) {
+  return [...listOfElement].reduce(function (table, element) {
+    if (!table.flat().includes(element)) {
+      table.push([element, 1]);
+      return table;
     }
 
-    const row = array.flat().indexOf(char) >> 1;
+    const row = table.flat().indexOf(element) >> 1;
     // 1 => 0
     // 3 => 1
     // 5 => 2
     // 7 => 3
-    array[row][1] += 1;
+    table[row][1] += 1;
 
-    return array;
+    return table;
   }, []);
+};
+
+//**********************************Approach 3**********************************
+
+const insertIntoTable = function (table, element) {
+  for (const row of table) {
+    if (row.includes(element)) {
+      row[1] += 1;
+      return table;
+    }
+  }
+
+  table.push([element, 1]);
+
+  return table;
+};
+
+const frequency2 = function (string) {
+  return [...string].reduce(insertIntoTable, []);
+};
+
+//**********************************Approach 4**********************************
+
+const insertIntoTable1 = function (table, element) {
+  const rowOrUndefined = table.find(function (row) {
+    return row[0] === element;
+  });
+
+  if (rowOrUndefined === undefined) {
+    table.push([element, 1]);
+    return table;
+  }
+
+  rowOrUndefined[1] += 1;
+  return table;
+};
+
+const frequency3 = function (string) {
+  return [...string].reduce(insertIntoTable1, []);
 };
 
 // hello, l => 2
@@ -62,4 +101,4 @@ const frequency1 = function (string) {
 // console.log(occurencesOfAll([1,2,3,4,5,1]));
 // console.log(occurencesOfAll('gour adhikary'));
 
-console.table(frequency1('hello'));
+console.table(frequency3('priyankush pal'));
